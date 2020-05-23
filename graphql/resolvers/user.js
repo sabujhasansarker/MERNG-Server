@@ -37,8 +37,8 @@ module.exports = {
       if (!valid) {
         throw new UserInputError("Errors", { errors });
       }
-      // TODO: Make sure user dosent already exist
-      const user = await User.find({ username });
+      // TODO: Make sure user doesnt already exist
+      const user = await User.findOne({ username });
       if (user) {
         throw new UserInputError("Username is taken", {
           errors: {
@@ -57,6 +57,7 @@ module.exports = {
       });
       const res = await newUser.save();
       const token = generateToken(res);
+      console.log(res);
       return {
         ...res._doc,
         id: res._id,
@@ -80,6 +81,7 @@ module.exports = {
         throw new UserInputError("Wrong credentials", { errors });
       }
       const token = generateToken(user);
+      console.log(user);
       return {
         ...user._doc,
         id: user._id,
