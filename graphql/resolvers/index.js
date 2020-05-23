@@ -9,5 +9,6 @@ module.exports = {
   // add data
   Mutation: {
     ...usersResolvers.Mutation,
+    ...postsResolvers.Mutation,
   },
 };

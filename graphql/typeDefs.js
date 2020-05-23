@@ -26,11 +26,14 @@ module.exports = gql`
   # for Query
   type Query {
     getPosts: [Post]
+    getPost(postId: ID!): Post
   }
   # Register user
   type Mutation {
     # {regiter is name of funtion } {RegisterInput is input from} for Data input and {:user is call back}
     register(registerInput: RegisterInput): User!
     login(username: String!, password: String!): User!
+    createPost(body: String!): Post!
+    deletePost(postId: ID!): String!
   }
 `;
