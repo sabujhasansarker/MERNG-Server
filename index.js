@@ -1,5 +1,5 @@
 // Apollo server setup
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer, PubSub } = require("apollo-server");
 
 // * Defs data type
 const typeDefs = require("./graphql/typeDefs");
@@ -7,10 +7,12 @@ const typeDefs = require("./graphql/typeDefs");
 // * Query data
 const resolvers = require("./graphql/resolvers");
 
+// Subscription
+const pubsub = new PubSub();
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req }),
+  context: ({ req }) => ({ req, pubsub }),
 });
 
 // Database connection

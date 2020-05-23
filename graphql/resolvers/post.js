@@ -44,6 +44,9 @@ module.exports = {
           createdAt: new Date().toISOString(),
         });
         await post.save();
+        context.pubsub.publish("NEW_POST", {
+          newPost: post,
+        });
         return post;
       } catch (err) {
         throw new UserInputError(err);
@@ -84,6 +87,11 @@ module.exports = {
         await post.save();
         return post;
       } else throw new UserInputError("Post not found");
+    },
+  },
+  Subscription: {
+    newPost: {
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator("NEW_POST"),
     },
   },
 };
